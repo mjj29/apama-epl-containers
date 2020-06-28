@@ -2,7 +2,7 @@
 <pysystest type="auto" state="runnable">
     
   <description> 
-    <title>Test Complex number functions</title>    
+    <title>Test Queue event</title>    
     <purpose><![CDATA[
 ]]>
     </purpose>
