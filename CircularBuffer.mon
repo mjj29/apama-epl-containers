@@ -11,6 +11,7 @@ event FixedSizeCircularBuffer
 		FixedSizeCircularBuffer buf := new FixedSizeCircularBuffer;
 		buf.data.setCapacity(size);
 		buf._capacity := size;
+		return buf;
 	}
 	/** */
 	action push(any val)
@@ -31,22 +32,22 @@ event FixedSizeCircularBuffer
 		return data;
 	}
 	/** */
-	action capacity() return integer
+	action capacity() returns integer
 	{
 		return _capacity;
 	}
 	/** */
-	action size() return integer
+	action size() returns integer
 	{
 		return data.size();
 	}
 	/** */
-	action empty() return boolean
+	action empty() returns boolean
 	{
 		return data.size()=0;
 	}
 	/** */
-	action full() return boolean
+	action full() returns boolean
 	{
 		return data.size()=_capacity;
 	}
