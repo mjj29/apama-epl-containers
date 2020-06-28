@@ -1,0 +1,33 @@
+using com.apamax.containers.Heap;
+using com.apamax.containers.HeapIntegerComparator;
+
+monitor FromArray
+{
+	action onload()
+	{
+	}
+	action foo()
+	{
+		sequence<any> input := new sequence<any>;
+		integer count := 100;
+		while count > 0 {
+			input.append((1000).rand());
+			count := count - 1;
+		}
+
+		Heap h := Heap.heapify(input, HeapIntegerComparator(true));
+
+		print h.peekTop().toString();
+
+		count := 100;
+		integer previous := integer.MIN;
+		while count > 0 {
+			integer i := <integer> h.pop();
+			print i.toString();
+			Asserts.assert("Heap order", previous < i);
+			previous := i;
+		}
+		Asserts.assert("Heap size after pops", 0 = h.size());
+	}
+}
+

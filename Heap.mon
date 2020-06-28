@@ -1,0 +1,177 @@
+package com.apamax.containers;
+
+/** */
+event HeapIntegerComparator
+{
+	boolean increasing;
+	action compare(any a, any b) returns integer
+	{
+		if (increasing) {
+			return <integer>a-<integer>b;
+		} else {
+			return <integer>b-<integer>a;
+		}
+	}
+}
+/** */
+event HeapStringComparator
+{
+	boolean increasing;
+	action compare(any a, any b) returns integer
+	{
+		integer positive := 1;
+		if not increasing {
+			positive := -1;
+		}
+		if <string>a < <string>b {
+			return -positive;
+		} else if <string>a = <string>b {
+			return 0;
+		} else {
+			return positive;
+		}
+	}
+}
+/** */
+event HeapIntegerFieldComparator
+{
+	string fieldName;
+	boolean increasing;
+	action compare(any a, any b) returns integer
+	{
+		if (increasing) {
+			return <integer>a.getField(fieldName)-<integer>b.getField(fieldName);
+		} else {
+			return <integer>b.getField(fieldName)-<integer>a.getField(fieldName);
+		}
+	}
+}
+/** */
+event Heap
+{
+	/** */
+	static action create(any comparator) returns Heap
+	{
+		Heap h := new Heap;
+		h.data := new sequence<any>;
+		h.comparator := <action<any, any> returns integer> comparator.getAction("compare");
+		return h;
+	}
+	/** */
+	static action heapify(sequence<any> data, any comparator) returns Heap
+	{
+		Heap h := new Heap;
+		h.data := data;
+		h.comparator := <action<any, any> returns integer> comparator.getAction("compare");
+		h.makeHeap();
+		return h;
+	}
+
+	/** */
+	action peekTop() returns any
+	{
+		return data[0];
+	}
+
+	/** */
+	action pop() returns any
+	{
+		any t := data[0];
+		data[0] := data[data.size()-1];
+		data.remove(data.size()-1);
+		heapifyDown(0);
+		return t;
+	}
+
+	/** */
+	action push(any val)
+	{
+		data.append(val);
+		heapifyUp(data.size()-1);
+	}
+
+	/** */
+	action empty() returns boolean
+	{
+		return data.size() = 0;
+	}
+
+	/** */
+	action size() returns integer
+	{
+		return data.size();
+	}
+
+	/** @private */
+	action swap(integer a, integer b)
+	{
+		any tmp := data[a];
+		data[a] := data[b];
+		data[b] := tmp;
+	}
+
+	/** @private */
+	action parentOf(integer index) returns integer
+	{
+		return (index-1)/2;
+	}
+
+	/** @private */
+	action leftChildOf(integer index) returns integer
+	{
+		integer child := (index*2)+1;
+		if child >= data.size() { return -1; }
+		else { return child; }
+	}
+
+	/** @private */
+	action rightChildOf(integer index) returns integer
+	{
+		integer child := (index+1)*2;
+		if child >= data.size() { return -1; }
+		else { return child; }
+	}
+
+	/** @private */
+	action heapifyDown(integer index)
+	{
+		integer leftChild := leftChildOf(index);
+		integer rightChild := rightChildOf(index);
+		integer largestNode := index;
+		if leftChild > 0 and comparator(data[leftChild], data[largestNode]) < 0 {
+			largestNode := leftChild;
+		}
+		if rightChild > 0 and comparator(data[rightChild], data[largestNode]) < 0 {
+			largestNode := rightChild;
+		}
+		if largestNode != index {
+			swap(index, largestNode);
+			heapifyDown(largestNode);
+		}
+	}
+
+	/** @private */
+	action heapifyUp(integer index)
+	{
+		integer parent := parentOf(index);
+		while (index > 0 and comparator(data[index], data[parent]) < 0) {
+			swap(index, parent);
+			index := parent;
+		}
+	}
+
+	/** @private */
+	action makeHeap()
+	{
+		integer lastNonLeaf := (data.size()/2)-1;
+		while lastNonLeaf >= 0 {
+			heapifyDown(lastNonLeaf);
+			lastNonLeaf := lastNonLeaf - 1;
+		}
+	}
+
+	/** @private */
+	sequence<any> data;
+	/** @private */
+	action<any, any> returns integer comparator;
+}
