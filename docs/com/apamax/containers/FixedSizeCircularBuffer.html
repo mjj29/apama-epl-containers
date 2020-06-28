@@ -45,7 +45,8 @@
 <H2>
 <FONT SIZE="-1">com.apamax.containers</FONT>
 <BR>Event FixedSizeCircularBuffer</H2>
-<HR>CircularBuffer<HR>
+<HR>A fixed-sized circular buffer object.<br>
+<br> Once the buffer is full, adding another value removes the oldest one in the buffer.<HR>
 <A NAME="action_summary"></A>
 <TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
 <TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
@@ -54,56 +55,47 @@
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1"><CODE>&nbsp;integer</CODE></FONT></TD><TD><CODE></CODE><CODE><B><A HREF="FixedSizeCircularBuffer.html#capacity()">capacity</A></B>()</CODE>
 <br>
-<br>
-</TD>
+<br>Return the capacity of this circular buffer.</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1"><CODE>&nbsp;void</CODE></FONT></TD><TD><CODE></CODE><CODE><B><A HREF="FixedSizeCircularBuffer.html#clear()">clear</A></B>()</CODE>
 <br>
-<br>
-</TD>
+<br>Remove all the values in the buffer.</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1"><CODE>&nbsp;<A HREF="../../../com/apamax/containers/FixedSizeCircularBuffer.html" title="type in com.apamax.containers">com.apamax.containers.FixedSizeCircularBuffer</A></CODE></FONT></TD><TD><CODE>static </CODE><CODE><B><A HREF="FixedSizeCircularBuffer.html#create()">create</A></B>(integer&nbsp;size)</CODE>
 <br>
-<br>
-</TD>
+<br>Create an empty buffer of a particular size.</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1"><CODE>&nbsp;boolean</CODE></FONT></TD><TD><CODE></CODE><CODE><B><A HREF="FixedSizeCircularBuffer.html#empty()">empty</A></B>()</CODE>
 <br>
-<br>
-</TD>
+<br>Returns true if the buffer is empty.</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1"><CODE>&nbsp;boolean</CODE></FONT></TD><TD><CODE></CODE><CODE><B><A HREF="FixedSizeCircularBuffer.html#full()">full</A></B>()</CODE>
 <br>
-<br>
-</TD>
+<br>Returns true if the buffer is full (size() == capacity()).</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1"><CODE>&nbsp;any</CODE></FONT></TD><TD><CODE></CODE><CODE><B><A HREF="FixedSizeCircularBuffer.html#get()">get</A></B>(integer&nbsp;offs)</CODE>
 <br>
-<br>
-</TD>
+<br>Return the item currently at the given position in the buffer.</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1"><CODE>&nbsp;sequence&lt;any&gt;</CODE></FONT></TD><TD><CODE></CODE><CODE><B><A HREF="FixedSizeCircularBuffer.html#getData()">getData</A></B>()</CODE>
 <br>
-<br>
-</TD>
+<br>Return the underlying sequence containing the circular buffer in order. This is returned by reference. You should not modify the return value, only clone it or iterate over it.</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1"><CODE>&nbsp;void</CODE></FONT></TD><TD><CODE></CODE><CODE><B><A HREF="FixedSizeCircularBuffer.html#push()">push</A></B>(any&nbsp;val)</CODE>
 <br>
-<br>
-</TD>
+<br>Push a value onto the buffer. If the buffer is full, removes the oldest value.</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1"><CODE>&nbsp;integer</CODE></FONT></TD><TD><CODE></CODE><CODE><B><A HREF="FixedSizeCircularBuffer.html#size()">size</A></B>()</CODE>
 <br>
-<br>
-</TD>
+<br>Return the number of values in the buffer.</TD>
 </TR>
 </TABLE>&nbsp;<A NAME="action_detail"></A>
 <TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
@@ -113,53 +105,43 @@
 </TABLE>
 <A NAME="capacity()"></A>
 <H3>capacity</H3>
-<PRE>integer&nbsp;<B>capacity</B>()</PRE>
-<HR>
+<PRE>integer&nbsp;<B>capacity</B>()</PRE>Return the capacity of this circular buffer.<HR>
 <A NAME="clear()"></A>
 <H3>clear</H3>
-<PRE>void&nbsp;<B>clear</B>()</PRE>
-<HR>
+<PRE>void&nbsp;<B>clear</B>()</PRE>Remove all the values in the buffer.<HR>
 <A NAME="create()"></A>
 <H3>create</H3>
 <PRE>
-<A HREF="../../../com/apamax/containers/FixedSizeCircularBuffer.html" title="type in com.apamax.containers">com.apamax.containers.FixedSizeCircularBuffer</A>&nbsp;static <B>create</B>(integer&nbsp;size)</PRE>
-<DL>
+<A HREF="../../../com/apamax/containers/FixedSizeCircularBuffer.html" title="type in com.apamax.containers">com.apamax.containers.FixedSizeCircularBuffer</A>&nbsp;static <B>create</B>(integer&nbsp;size)</PRE>Create an empty buffer of a particular size.<DL>
 <DT>
 <B>Parameters:</B>
 </DT>
 <DD>
-<tt>size</tt>
-</DD>
+<tt>size</tt>&nbsp;-&nbsp;The maximum capacity of the buffer.</DD>
 </DL>
 <HR>
 <A NAME="empty()"></A>
 <H3>empty</H3>
-<PRE>boolean&nbsp;<B>empty</B>()</PRE>
-<HR>
+<PRE>boolean&nbsp;<B>empty</B>()</PRE>Returns true if the buffer is empty.<HR>
 <A NAME="full()"></A>
 <H3>full</H3>
-<PRE>boolean&nbsp;<B>full</B>()</PRE>
-<HR>
+<PRE>boolean&nbsp;<B>full</B>()</PRE>Returns true if the buffer is full (size() == capacity()).<HR>
 <A NAME="get()"></A>
 <H3>get</H3>
-<PRE>any&nbsp;<B>get</B>(integer&nbsp;offs)</PRE>
-<DL>
+<PRE>any&nbsp;<B>get</B>(integer&nbsp;offs)</PRE>Return the item currently at the given position in the buffer.<DL>
 <DT>
 <B>Parameters:</B>
 </DT>
 <DD>
-<tt>offs</tt>
-</DD>
+<tt>offs</tt>&nbsp;-&nbsp;The offset into the buffer, with 0 being the oldest and capacity-1 being the most recent.</DD>
 </DL>
 <HR>
 <A NAME="getData()"></A>
 <H3>getData</H3>
-<PRE>sequence&lt;any&gt;&nbsp;<B>getData</B>()</PRE>
-<HR>
+<PRE>sequence&lt;any&gt;&nbsp;<B>getData</B>()</PRE>Return the underlying sequence containing the circular buffer in order. This is returned by reference. You should not modify the return value, only clone it or iterate over it.<HR>
 <A NAME="push()"></A>
 <H3>push</H3>
-<PRE>void&nbsp;<B>push</B>(any&nbsp;val)</PRE>
-<DL>
+<PRE>void&nbsp;<B>push</B>(any&nbsp;val)</PRE>Push a value onto the buffer. If the buffer is full, removes the oldest value.<DL>
 <DT>
 <B>Parameters:</B>
 </DT>
@@ -170,8 +152,7 @@
 <HR>
 <A NAME="size()"></A>
 <H3>size</H3>
-<PRE>integer&nbsp;<B>size</B>()</PRE>
-<HR>
+<PRE>integer&nbsp;<B>size</B>()</PRE>Return the number of values in the buffer.<HR>
 <HR>
 <TABLE BORDER="0" WIDTH="100%" CELLPADDING="1" CELLSPACING="0" SUMMARY="">
 <TR>

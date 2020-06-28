@@ -1,21 +1,21 @@
 package com.apamax.containers;
 
 /**
- * Stack
+ * A Last-In-First-Out stack object.
  */
 event Stack
 {
-	/** */
+	/** Create an empty stack. */
 	static action create() returns Stack
 	{
 		return new Stack;
 	}
-	/** */
+	/** Push a value onto the top of the stack. */
 	action push(any val)
 	{
 		data.append(val);
 	}
-	/** */
+	/** Remove and return the top value from the stack. */
 	action pop() returns any
 	{
 		integer last := data.size()-1;
@@ -23,27 +23,26 @@ event Stack
 		data.remove(last);
 		return val;
 	}
-	/** */
+	/** Return the top value from the stack without removing it. */
 	action peekTop() returns any
 	{
 		return data[data.size()-1];
 	}
-	/** */
+	/** Return the number of values in the stack. */
 	action size() returns integer
 	{
 		return data.size();
 	}
-	/** */
+	/** Return true if the stack is empty. */
 	action empty() returns boolean
 	{
 		return data.size()=0;
 	}
-	/** */
+	/** Remove all of the values in the stack. */
 	action clear()
 	{
 		data.clear();
 	}
-
 
 	/** @private */
 	sequence<any> data;

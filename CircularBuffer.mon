@@ -1,11 +1,15 @@
 package com.apamax.containers;
 
 /**
- * CircularBuffer
+ * A fixed-sized circular buffer object.
+ * 
+ * Once the buffer is full, adding another value removes the oldest one in the buffer.
  */
 event FixedSizeCircularBuffer
 {
-	/** */
+	/** Create an empty buffer of a particular size.
+	 * @param size The maximum capacity of the buffer.
+	 */
 	static action create(integer size) returns FixedSizeCircularBuffer
 	{
 		FixedSizeCircularBuffer buf := new FixedSizeCircularBuffer;
@@ -13,7 +17,9 @@ event FixedSizeCircularBuffer
 		buf._capacity := size;
 		return buf;
 	}
-	/** */
+	/** Push a value onto the buffer.
+	 * If the buffer is full, removes the oldest value.
+	 */
 	action push(any val)
 	{
 		data.append(val);
@@ -21,42 +27,45 @@ event FixedSizeCircularBuffer
 			data.remove(0);
 		}
 	}
-	/** */
+	/** Return the item currently at the given position in the buffer.
+	 * @param offs The offset into the buffer, with 0 being the oldest and capacity-1 being the most recent.
+	 */
 	action get(integer offs) returns any
 	{
 		return data[offs];
 	}
-	/** */
+	/** Return the underlying sequence containing the circular buffer in order. 
+	 * This is returned by reference. You should not modify the return value, only clone it or iterate over it.
+	 */
 	action getData() returns sequence<any>
 	{
 		return data;
 	}
-	/** */
+	/** Return the capacity of this circular buffer. */
 	action capacity() returns integer
 	{
 		return _capacity;
 	}
-	/** */
+	/** Return the number of values in the buffer. */
 	action size() returns integer
 	{
 		return data.size();
 	}
-	/** */
+	/** Returns true if the buffer is empty. */
 	action empty() returns boolean
 	{
 		return data.size()=0;
 	}
-	/** */
+	/** Returns true if the buffer is full (size() == capacity()). */
 	action full() returns boolean
 	{
 		return data.size()=_capacity;
 	}
-	/** */
+	/** Remove all the values in the buffer. */
 	action clear()
 	{
 		data.clear();
 	}
-
 
 	/** @private */
 	sequence<any> data;

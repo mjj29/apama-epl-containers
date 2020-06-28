@@ -45,7 +45,19 @@
 <H2>
 <FONT SIZE="-1">com.apamax.containers</FONT>
 <BR>Event Heap</H2>
-<HR>
+<HR>A Max/Min-value Heap object with configurable type comparators.<br>
+<br> Create with a comparator object determining the Heap order and comparison function.<br>
+<br> Several built-in comparators are available.<DL>
+<DT>
+<B>See Also:</B>
+</DT>
+<DD>
+<A HREF="../../../com/apamax/containers/HeapIntegerFieldComparator.html" title="type in com.apamax.containers">com.apamax.containers.HeapIntegerFieldComparator</A>&nbsp;-&nbsp;</DD>
+<DD>
+<A HREF="../../../com/apamax/containers/HeapIntegerComparator.html" title="type in com.apamax.containers">com.apamax.containers.HeapIntegerComparator</A>&nbsp;-&nbsp;</DD>
+<DD>
+<A HREF="../../../com/apamax/containers/HeapStringComparator.html" title="type in com.apamax.containers">com.apamax.containers.HeapStringComparator</A>&nbsp;-&nbsp;</DD>
+</DL>
 <HR>
 <A NAME="action_summary"></A>
 <TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
@@ -55,44 +67,37 @@
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1"><CODE>&nbsp;integer</CODE></FONT></TD><TD><CODE>static </CODE><CODE><B><A HREF="Heap.html#create()">create</A></B>(any&nbsp;comparator)</CODE>
 <br>
-<br>
-</TD>
+<br>Create an empty heap with the given comparator. The comparator determines if this is a min-heap or a max-heap and how to compare the values.</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1"><CODE>&nbsp;boolean</CODE></FONT></TD><TD><CODE></CODE><CODE><B><A HREF="Heap.html#empty()">empty</A></B>()</CODE>
 <br>
-<br>
-</TD>
+<br>Returns true if the heap is empty.</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1"><CODE>&nbsp;integer</CODE></FONT></TD><TD><CODE>static </CODE><CODE><B><A HREF="Heap.html#heapify()">heapify</A></B>(sequence&lt;any&gt;&nbsp;data,&nbsp;any&nbsp;comparator)</CODE>
 <br>
-<br>
-</TD>
+<br>Create an in-place heap on the given sequence, with the given comparator. The comparator determines if this is a min-heap or a max-heap and how to compare the values.</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1"><CODE>&nbsp;any</CODE></FONT></TD><TD><CODE></CODE><CODE><B><A HREF="Heap.html#peekTop()">peekTop</A></B>()</CODE>
 <br>
-<br>
-</TD>
+<br>Return the top value from the heap, according to its comparator.</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1"><CODE>&nbsp;any</CODE></FONT></TD><TD><CODE></CODE><CODE><B><A HREF="Heap.html#pop()">pop</A></B>()</CODE>
 <br>
-<br>
-</TD>
+<br>Remove and return the top value from the heap, according to its comparator, maintaining the heap.</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1"><CODE>&nbsp;void</CODE></FONT></TD><TD><CODE></CODE><CODE><B><A HREF="Heap.html#push()">push</A></B>(any&nbsp;val)</CODE>
 <br>
-<br>
-</TD>
+<br>Push a new value into the heap, maintaining the heap.</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1"><CODE>&nbsp;integer</CODE></FONT></TD><TD><CODE></CODE><CODE><B><A HREF="Heap.html#size()">size</A></B>()</CODE>
 <br>
-<br>
-</TD>
+<br>Returns the number of values in the heap.</TD>
 </TR>
 </TABLE>&nbsp;<A NAME="action_detail"></A>
 <TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
@@ -102,47 +107,38 @@
 </TABLE>
 <A NAME="create()"></A>
 <H3>create</H3>
-<PRE>integer&nbsp;static <B>create</B>(any&nbsp;comparator)</PRE>
-<DL>
+<PRE>integer&nbsp;static <B>create</B>(any&nbsp;comparator)</PRE>Create an empty heap with the given comparator. The comparator determines if this is a min-heap or a max-heap and how to compare the values.<DL>
 <DT>
 <B>Parameters:</B>
 </DT>
 <DD>
-<tt>comparator</tt>
-</DD>
+<tt>comparator</tt>&nbsp;-&nbsp;A Comparator object with a <tt>compare</tt> action with the signature <tt>action&lt;any, any&gt; returns integer</tt>.</DD>
 </DL>
 <HR>
 <A NAME="empty()"></A>
 <H3>empty</H3>
-<PRE>boolean&nbsp;<B>empty</B>()</PRE>
-<HR>
+<PRE>boolean&nbsp;<B>empty</B>()</PRE>Returns true if the heap is empty.<HR>
 <A NAME="heapify()"></A>
 <H3>heapify</H3>
-<PRE>integer&nbsp;static <B>heapify</B>(sequence&lt;any&gt;&nbsp;data,&nbsp;any&nbsp;comparator)</PRE>
-<DL>
+<PRE>integer&nbsp;static <B>heapify</B>(sequence&lt;any&gt;&nbsp;data,&nbsp;any&nbsp;comparator)</PRE>Create an in-place heap on the given sequence, with the given comparator. The comparator determines if this is a min-heap or a max-heap and how to compare the values.<DL>
 <DT>
 <B>Parameters:</B>
 </DT>
 <DD>
-<tt>data</tt>
-</DD>
+<tt>data</tt>&nbsp;-&nbsp;A sequence which will be heapified in-place and further heap operations will be made on the array.</DD>
 <DD>
-<tt>comparator</tt>
-</DD>
+<tt>comparator</tt>&nbsp;-&nbsp;A Comparator object with a <tt>compare</tt> action with the signature <tt>action&lt;any, any&gt; returns integer</tt>.</DD>
 </DL>
 <HR>
 <A NAME="peekTop()"></A>
 <H3>peekTop</H3>
-<PRE>any&nbsp;<B>peekTop</B>()</PRE>
-<HR>
+<PRE>any&nbsp;<B>peekTop</B>()</PRE>Return the top value from the heap, according to its comparator.<HR>
 <A NAME="pop()"></A>
 <H3>pop</H3>
-<PRE>any&nbsp;<B>pop</B>()</PRE>
-<HR>
+<PRE>any&nbsp;<B>pop</B>()</PRE>Remove and return the top value from the heap, according to its comparator, maintaining the heap.<HR>
 <A NAME="push()"></A>
 <H3>push</H3>
-<PRE>void&nbsp;<B>push</B>(any&nbsp;val)</PRE>
-<DL>
+<PRE>void&nbsp;<B>push</B>(any&nbsp;val)</PRE>Push a new value into the heap, maintaining the heap.<DL>
 <DT>
 <B>Parameters:</B>
 </DT>
@@ -153,8 +149,7 @@
 <HR>
 <A NAME="size()"></A>
 <H3>size</H3>
-<PRE>integer&nbsp;<B>size</B>()</PRE>
-<HR>
+<PRE>integer&nbsp;<B>size</B>()</PRE>Returns the number of values in the heap.<HR>
 <HR>
 <TABLE BORDER="0" WIDTH="100%" CELLPADDING="1" CELLSPACING="0" SUMMARY="">
 <TR>

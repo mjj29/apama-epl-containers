@@ -1,9 +1,14 @@
 package com.apamax.containers;
 
-/** */
+/** A comparator for a heap containing integers. 
+ * @param increasing True for a min-heap, false for a max-heap.
+ */
 event HeapIntegerComparator
 {
 	boolean increasing;
+	/** Compare two integers.
+	 * @returns Positive if increasing and a > b, or not increasing and a < b, 0 if equal and negative otherwise.
+	 */
 	action compare(any a, any b) returns integer
 	{
 		if (increasing) {
@@ -13,10 +18,15 @@ event HeapIntegerComparator
 		}
 	}
 }
-/** */
+/** A comparator for a heap containing strings. 
+ * @param increasing True for a min-heap, false for a max-heap.
+ */
 event HeapStringComparator
 {
 	boolean increasing;
+	/** Compare two strings.
+	 * @returns Positive if increasing and a > b, or not increasing and a < b, 0 if equal and negative otherwise.
+	 */
 	action compare(any a, any b) returns integer
 	{
 		integer positive := 1;
@@ -32,11 +42,17 @@ event HeapStringComparator
 		}
 	}
 }
-/** */
+/** A comparator for a heap containing events, given a field name which will be an integer to order the heap. 
+ * @param fieldName The field of the event to use for the comparison. Must be an integer.
+ * @param increasing True for a min-heap, false for a max-heap.
+ */
 event HeapIntegerFieldComparator
 {
 	string fieldName;
 	boolean increasing;
+	/** Compare two events.
+	 * @returns Positive if increasing and a > b, or not increasing and a < b, 0 if equal and negative otherwise.
+	 */
 	action compare(any a, any b) returns integer
 	{
 		if (increasing) {
@@ -46,10 +62,23 @@ event HeapIntegerFieldComparator
 		}
 	}
 }
-/** */
+/**
+ * A Max/Min-value Heap object with configurable type comparators.
+ *
+ * Create with a comparator object determining the Heap order and comparison function.
+ * 
+ * Several built-in comparators are available.
+ *
+ * @see HeapIntegerFieldComparator
+ * @see HeapIntegerComparator
+ * @see HeapStringComparator
+ */
 event Heap
 {
-	/** */
+	/** Create an empty heap with the given comparator.
+	 * The comparator determines if this is a min-heap or a max-heap and how to compare the values.
+	 * @param comparator A Comparator object with a <tt>compare</tt> action with the signature <tt>action&lt;any, any&gt; returns integer</tt>.
+	 */
 	static action create(any comparator) returns Heap
 	{
 		Heap h := new Heap;
@@ -57,7 +86,11 @@ event Heap
 		h.comparator := <action<any, any> returns integer> comparator.getAction("compare");
 		return h;
 	}
-	/** */
+	/** Create an in-place heap on the given sequence, with the given comparator.
+	 * The comparator determines if this is a min-heap or a max-heap and how to compare the values.
+	 * @param data A sequence which will be heapified in-place and further heap operations will be made on the array.
+	 * @param comparator A Comparator object with a <tt>compare</tt> action with the signature <tt>action&lt;any, any&gt; returns integer</tt>.
+	 */
 	static action heapify(sequence<any> data, any comparator) returns Heap
 	{
 		Heap h := new Heap;
@@ -67,13 +100,13 @@ event Heap
 		return h;
 	}
 
-	/** */
+	/** Return the top value from the heap, according to its comparator. */
 	action peekTop() returns any
 	{
 		return data[0];
 	}
 
-	/** */
+	/** Remove and return the top value from the heap, according to its comparator, maintaining the heap. */
 	action pop() returns any
 	{
 		any t := data[0];
@@ -83,20 +116,20 @@ event Heap
 		return t;
 	}
 
-	/** */
+	/** Push a new value into the heap, maintaining the heap. */
 	action push(any val)
 	{
 		data.append(val);
 		heapifyUp(data.size()-1);
 	}
 
-	/** */
+	/** Returns true if the heap is empty. */
 	action empty() returns boolean
 	{
 		return data.size() = 0;
 	}
 
-	/** */
+	/** Returns the number of values in the heap. */
 	action size() returns integer
 	{
 		return data.size();

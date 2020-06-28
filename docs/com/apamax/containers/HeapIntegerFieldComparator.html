@@ -45,8 +45,7 @@
 <H2>
 <FONT SIZE="-1">com.apamax.containers</FONT>
 <BR>Event HeapIntegerFieldComparator</H2>
-<HR>
-<HR>
+<HR>A comparator for a heap containing events, given a field name which will be an integer to order the heap.<HR>
 <A NAME="member_summary"></A>
 <TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
 <TR BGCOLOR="#CCCCFF" CLASS="TableHeadingColor">
@@ -70,7 +69,7 @@
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1"><CODE>&nbsp;integer</CODE></FONT></TD><TD><CODE></CODE><CODE><B><A HREF="HeapIntegerFieldComparator.html#compare()">compare</A></B>(any&nbsp;a,&nbsp;any&nbsp;b)</CODE>
 <br>
-</TD>
+<br>Compare two events.</TD>
 </TR>
 </TABLE>&nbsp;<A NAME="member_detail"></A>
 <TABLE BORDER="1" WIDTH="100%" CELLPADDING="3" CELLSPACING="0" SUMMARY="">
@@ -96,8 +95,7 @@
 </TABLE>
 <A NAME="compare()"></A>
 <H3>compare</H3>
-<PRE>integer&nbsp;<B>compare</B>(any&nbsp;a,&nbsp;any&nbsp;b)</PRE>
-<DL>
+<PRE>integer&nbsp;<B>compare</B>(any&nbsp;a,&nbsp;any&nbsp;b)</PRE>Compare two events.<DL>
 <DT>
 <B>Parameters:</B>
 </DT>
@@ -107,6 +105,12 @@
 <DD>
 <tt>b</tt>
 </DD>
+</DL>
+<DL>
+<DT>
+<B>Returns:</B>
+</DT>
+<DD>Positive if increasing and a > b, or not increasing and a < b, 0 if equal and negative otherwise.</DD>
 </DL>
 <HR>
 <HR>

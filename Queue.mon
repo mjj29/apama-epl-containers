@@ -1,48 +1,47 @@
 package com.apamax.containers;
 
 /**
- * Queue
+ * A First-In-First-Out queue object.
  */
 event Queue
 {
-	/** */
+	/** Create an empty queue. */
 	static action create() returns Queue
 	{
 		return new Queue;
 	}
-	/** */
+	/** Push a value onto the back of the queue. */
 	action push(any val)
 	{
 		data.append(val);
 	}
-	/** */
+	/** Remove and return the value on the front of the queue. */
 	action pop() returns any
 	{
 		any val := data[0];
 		data.remove(0);
 		return val;
 	}
-	/** */
+	/** Return the front value on the queue without removing it. */
 	action peekNext() returns any
 	{
 		return data[0];
 	}
-	/** */
+	/** Return the number of items in the queue. */
 	action size() returns integer
 	{
 		return data.size();
 	}
-	/** */
+	/** Return true if the queue is empty. */
 	action empty() returns boolean
 	{
 		return data.size()=0;
 	}
-	/** */
+	/** Remove all the contents of the queue. */
 	action clear()
 	{
 		data.clear();
 	}
-
 
 	/** @private */
 	sequence<any> data;
