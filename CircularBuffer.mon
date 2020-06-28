@@ -19,6 +19,7 @@ event FixedSizeCircularBuffer
 	}
 	/** Push a value onto the buffer.
 	 * If the buffer is full, removes the oldest value.
+	 * @param val The value to add to the buffer.
 	 */
 	action push(any val)
 	{

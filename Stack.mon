@@ -10,7 +10,9 @@ event Stack
 	{
 		return new Stack;
 	}
-	/** Push a value onto the top of the stack. */
+	/** Push a value onto the top of the stack. 
+	 * @param val The value to add to the stack.
+	 */
 	action push(any val)
 	{
 		data.append(val);

@@ -10,7 +10,9 @@ event Queue
 	{
 		return new Queue;
 	}
-	/** Push a value onto the back of the queue. */
+	/** Push a value onto the back of the queue. 
+	 * @param val The value to add to the queue.
+	 */
 	action push(any val)
 	{
 		data.append(val);

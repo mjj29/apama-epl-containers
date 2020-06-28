@@ -1,13 +1,15 @@
 package com.apamax.containers;
 
 /** A comparator for a heap containing integers. 
- * @param increasing True for a min-heap, false for a max-heap.
  */
 event HeapIntegerComparator
 {
+	/** True for a min-heap, false for a max-heap. */
 	boolean increasing;
 	/** Compare two integers.
 	 * @returns Positive if increasing and a > b, or not increasing and a < b, 0 if equal and negative otherwise.
+	 * @param a The first integer to compare.
+	 * @param b The second integer to compare.
 	 */
 	action compare(any a, any b) returns integer
 	{
@@ -19,13 +21,15 @@ event HeapIntegerComparator
 	}
 }
 /** A comparator for a heap containing strings. 
- * @param increasing True for a min-heap, false for a max-heap.
  */
 event HeapStringComparator
 {
+	/** True for a min-heap, false for a max-heap. */
 	boolean increasing;
 	/** Compare two strings.
 	 * @returns Positive if increasing and a > b, or not increasing and a < b, 0 if equal and negative otherwise.
+	 * @param a The first string to compare.
+	 * @param b The second string to compare.
 	 */
 	action compare(any a, any b) returns integer
 	{
@@ -43,15 +47,17 @@ event HeapStringComparator
 	}
 }
 /** A comparator for a heap containing events, given a field name which will be an integer to order the heap. 
- * @param fieldName The field of the event to use for the comparison. Must be an integer.
- * @param increasing True for a min-heap, false for a max-heap.
  */
 event HeapIntegerFieldComparator
 {
+	/** The field of the event to use for the comparison. Must be an integer. */
 	string fieldName;
+	/** True for a min-heap, false for a max-heap. */
 	boolean increasing;
 	/** Compare two events.
 	 * @returns Positive if increasing and a > b, or not increasing and a < b, 0 if equal and negative otherwise.
+	 * @param a The first event to compare.
+	 * @param b The second event to compare.
 	 */
 	action compare(any a, any b) returns integer
 	{
@@ -116,7 +122,9 @@ event Heap
 		return t;
 	}
 
-	/** Push a new value into the heap, maintaining the heap. */
+	/** Push a new value into the heap, maintaining the heap. 
+	 * @param val The value to add to the heap.
+	 */
 	action push(any val)
 	{
 		data.append(val);
