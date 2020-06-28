@@ -1,0 +1,101 @@
+using com.apamax.containers.Heap;
+using com.apamax.containers.HeapIntegerComparator;
+using com.apamax.containers.HeapStringComparator;
+using com.apamax.containers.HeapIntegerFieldComparator;
+
+event TestEvent
+{
+	integer key;
+	string value;
+}
+
+event ValidateInteger
+{
+	boolean increasing;
+	integer previous;
+	action validate(any i)
+	{
+		if increasing then {
+			Asserts.assert("Heap order", previous <= <integer> i);
+		} else {
+			Asserts.assert("Heap order", previous >= <integer> i);
+		}
+		previous := <integer> i;
+	}
+}
+
+event ValidateString
+{
+	boolean increasing;
+	string previous;
+	action validate(any i)
+	{
+		if increasing then {
+			Asserts.assert("Heap order", previous <= <string> i);
+		} else {
+			Asserts.assert("Heap order", previous >= <string> i);
+		}
+		previous := <string> i;
+	}
+}
+
+event ValidateEvent
+{
+	boolean increasing;
+	integer previous;
+	action validate(any i)
+	{
+		TestEvent e := <TestEvent> i;
+		if increasing then {
+			Asserts.assert("Heap order", previous <= e.key);
+		} else {
+			Asserts.assert("Heap order", previous >= e.key);
+		}
+		previous := e.key;
+	}
+}
+
+monitor Comparators
+{
+	action onload()
+	{
+		sequence<any> comparators := [
+			<any> HeapIntegerComparator(true), HeapIntegerComparator(false),
+			HeapStringComparator(true), HeapStringComparator(false),
+			HeapIntegerFieldComparator("key", true), HeapIntegerFieldComparator("key", false) ];
+		sequence<action<> returns any> generators := [
+			intGenerator, intGenerator, stringGenerator, stringGenerator, eventGenerator, eventGenerator ];
+		sequence<action<any>> validators := [
+			ValidateInteger(true, integer.MIN).validate, ValidateInteger(false, integer.MAX).validate,
+			ValidateString(true, "").validate, ValidateString(false, "999999999999999999").validate,
+			ValidateEvent(true, integer.MIN).validate, ValidateEvent(false, integer.MAX).validate];
+
+		integer i := 0;
+		while i < 6 {
+			Heap h := Heap.create(comparators[i]);
+			integer count := 100;
+			while count > 0 {
+				h.push(generators[i]());
+				count := count - 1;
+			}
+			count := 100;
+			while count > 0 {
+				validators[i](h.pop());
+				count := count - 1;
+			}
+			i := i + 1;
+		}
+
+	}
+	action intGenerator() returns any { return (1000).rand(); }
+	action stringGenerator() returns any 
+	{
+		return (1000+((1000).rand())).toString();
+	}
+	action eventGenerator() returns any
+	{
+		integer i := <integer> intGenerator();
+		return TestEvent(i, i.toString());
+	}
+	
+}

@@ -154,9 +154,9 @@ event Heap
 	action heapifyUp(integer index)
 	{
 		integer parent := parentOf(index);
-		while (index > 0 and comparator(data[index], data[parent]) < 0) {
+		if index > 0 and comparator(data[index], data[parent]) < 0 {
 			swap(index, parent);
-			index := parent;
+			heapifyUp(parent);
 		}
 	}
 

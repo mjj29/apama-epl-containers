@@ -1,0 +1,33 @@
+using com.apamax.containers.Stack;
+
+monitor test
+{
+	action onload()
+	{
+		Stack s := Stack.create();
+
+		Asserts.assert("empty", s.empty());
+		Asserts.assertEquals("size", s.size(), 0);
+
+		s.push(1);
+		s.push("2");
+		s.push(3);
+
+		Asserts.assert("full", not s.empty());
+		Asserts.assertEquals("size", s.size(), 3);
+
+		Asserts.assertEquals("peek1", s.peekTop(), 3);
+		Asserts.assertEquals("pop1", s.pop(), 3);
+		Asserts.assertEquals("peek2", s.peekTop(), "2");
+		Asserts.assertEquals("pop2", s.pop(), "2");
+		Asserts.assertEquals("peek3", s.peekTop(), 1);
+		Asserts.assertEquals("pop3", s.pop(), 1);
+
+		s.push(1);
+		s.push("2");
+		s.push(3);
+		s.clear();
+		Asserts.assertEquals("clear size", s.size(), 0);
+
+	}
+}

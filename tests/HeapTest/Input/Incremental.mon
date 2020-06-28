@@ -9,20 +9,23 @@ monitor Incremental
 		integer count := 100;
 		while count > 0 {
 			h.push((1000).rand());
-			print h.data.toString();
 			count := count - 1;
 		}
 
-		print h.peekTop().toString();
+		Asserts.assert("full", not h.empty());
 
 		count := 100;
 		integer previous := integer.MIN;
 		while count > 0 {
+			Asserts.assert("Heap size", count = h.size());
+			integer j := <integer> h.peekTop();
 			integer i := <integer> h.pop();
-			print i.toString();
-			Asserts.assert("Heap order", previous < i);
+			Asserts.assertEquals("peek equals pop", i, j);
+			Asserts.assert("Heap order", previous <= i);
 			previous := i;
+			count := count - 1;
 		}
-		Asserts.assert("Heap size after pops", 0 = h.size());
+
+		Asserts.assert("empty", h.empty());
 	}
 }

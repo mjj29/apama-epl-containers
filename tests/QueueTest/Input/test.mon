@@ -1,0 +1,33 @@
+using com.apamax.containers.Queue;
+
+monitor test
+{
+	action onload()
+	{
+		Queue q := Queue.create();
+
+		Asserts.assert("empty", q.empty());
+		Asserts.assertEquals("size", q.size(), 0);
+
+		q.push(1);
+		q.push("2");
+		q.push(3);
+
+		Asserts.assert("full", not q.empty());
+		Asserts.assertEquals("size", q.size(), 3);
+
+		Asserts.assertEquals("peek1", q.peekNext(), 1);
+		Asserts.assertEquals("pop1", q.pop(), 1);
+		Asserts.assertEquals("peek2", q.peekNext(), "2");
+		Asserts.assertEquals("pop2", q.pop(), "2");
+		Asserts.assertEquals("peek3", q.peekNext(), 3);
+		Asserts.assertEquals("pop3", q.pop(), 3);
+
+		q.push(1);
+		q.push("2");
+		q.push(3);
+		q.clear();
+		Asserts.assertEquals("clear size", q.size(), 0);
+
+	}
+}

@@ -16,24 +16,24 @@ event Queue
 		data.append(val);
 	}
 	/** */
-	action pop() return any
+	action pop() returns any
 	{
 		any val := data[0];
 		data.remove(0);
 		return val;
 	}
 	/** */
-	action peekNext() return any
+	action peekNext() returns any
 	{
 		return data[0];
 	}
 	/** */
-	action size() return integer
+	action size() returns integer
 	{
 		return data.size();
 	}
 	/** */
-	action empty() return boolean
+	action empty() returns boolean
 	{
 		return data.size()=0;
 	}

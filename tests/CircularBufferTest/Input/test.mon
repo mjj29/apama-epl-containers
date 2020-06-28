@@ -1,0 +1,43 @@
+using com.apamax.containers.FixedSizeCircularBuffer;
+
+monitor test
+{
+	action onload()
+	{
+		FixedSizeCircularBuffer buf := FixedSizeCircularBuffer.create(3);
+		Asserts.assertEquals("capacity", buf.capacity(), 3);
+
+		Asserts.assert("empty1", buf.empty());
+		Asserts.assert("empty2", not buf.full());
+		Asserts.assertEquals("size1", buf.size(), 0);
+
+		Asserts.assertEquals("empty data", buf.getData().toString(), "[]");
+
+		buf.push(1);
+		Asserts.assertEquals("size2", buf.size(), 1);
+		Asserts.assert("semifull1", not buf.empty());
+		Asserts.assert("semifull2", not buf.full());
+		Asserts.assertEquals("data1", buf.getData().toString(), "[any(integer,1)]");
+
+		buf.push(2);
+		buf.push(3);
+		Asserts.assertEquals("size3", buf.size(), 3);
+		Asserts.assert("full1", not buf.empty());
+		Asserts.assert("full2", buf.full());
+		Asserts.assertEquals("data2", buf.getData().toString(), "[any(integer,1),any(integer,2),any(integer,3)]");
+
+		buf.push(4);
+		Asserts.assertEquals("size4", buf.size(), 3);
+		Asserts.assertEquals("data3", buf.getData().toString(), "[any(integer,2),any(integer,3),any(integer,4)]");
+
+		Asserts.assertEquals("get0", buf.get(0), 2);
+		Asserts.assertEquals("get1", buf.get(1), 3);
+		Asserts.assertEquals("get2", buf.get(2), 4);
+
+		buf.clear();
+		Asserts.assert("clear1", buf.empty());
+		Asserts.assert("clear2", not buf.full());
+		Asserts.assertEquals("clear size", buf.size(), 0);
+		Asserts.assertEquals("clear data", buf.getData().toString(), "[]");
+	}
+}
