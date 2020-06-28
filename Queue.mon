@@ -1,0 +1,50 @@
+package com.apamax.containers;
+
+/**
+ * Queue
+ */
+event Queue
+{
+	/** */
+	static action create() returns Queue
+	{
+		return new Queue;
+	}
+	/** */
+	action push(any val)
+	{
+		data.append(val);
+	}
+	/** */
+	action pop() return any
+	{
+		any val := data[0];
+		data.remove(0);
+		return val;
+	}
+	/** */
+	action peekNext() return any
+	{
+		return data[0];
+	}
+	/** */
+	action size() return integer
+	{
+		return data.size();
+	}
+	/** */
+	action empty() return boolean
+	{
+		return data.size()=0;
+	}
+	/** */
+	action clear()
+	{
+		data.clear();
+	}
+
+
+	/** @private */
+	sequence<any> data;
+}
+

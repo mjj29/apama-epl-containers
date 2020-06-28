@@ -1,0 +1,50 @@
+package com.apamax.containers;
+
+/**
+ * Stack
+ */
+event Stack
+{
+	/** */
+	static action create() returns Stack
+	{
+		return new Stack;
+	}
+	/** */
+	action push(any val)
+	{
+		data.append(val);
+	}
+	/** */
+	action pop() return any
+	{
+		integer last := data.size()-1;
+		any val := data[last];
+		data.remove(last);
+		return val;
+	}
+	/** */
+	action peekTop() return any
+	{
+		return data[data.size()-1];
+	}
+	/** */
+	action size() return integer
+	{
+		return data.size();
+	}
+	/** */
+	action empty() return boolean
+	{
+		return data.size()=0;
+	}
+	/** */
+	action clear()
+	{
+		data.clear();
+	}
+
+
+	/** @private */
+	sequence<any> data;
+}

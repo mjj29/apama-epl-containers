@@ -1,0 +1,66 @@
+package com.apamax.containers;
+
+/**
+ * CircularBuffer
+ */
+event FixedSizeCircularBuffer
+{
+	/** */
+	static action create(integer size) returns FixedSizeCircularBuffer
+	{
+		FixedSizeCircularBuffer buf := new FixedSizeCircularBuffer;
+		buf.data.setCapacity(size);
+		buf._capacity := size;
+	}
+	/** */
+	action push(any val)
+	{
+		data.append(val);
+		if data.size() > _capacity {
+			data.remove(0);
+		}
+	}
+	/** */
+	action get(integer offs) returns any
+	{
+		return data[offs];
+	}
+	/** */
+	action getData() returns sequence<any>
+	{
+		return data;
+	}
+	/** */
+	action capacity() return integer
+	{
+		return _capacity;
+	}
+	/** */
+	action size() return integer
+	{
+		return data.size();
+	}
+	/** */
+	action empty() return boolean
+	{
+		return data.size()=0;
+	}
+	/** */
+	action full() return boolean
+	{
+		return data.size()=_capacity;
+	}
+	/** */
+	action clear()
+	{
+		data.clear();
+	}
+
+
+	/** @private */
+	sequence<any> data;
+	/** @private */
+	integer _capacity;
+}
+
+
