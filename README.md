@@ -5,7 +5,7 @@ Apama EPL Classes for container types - Heap, Stack, Queue, CircularBuffer
 
 This works with Apama 10.5 or later, and probably most of the earlier ones as well
 
-## Using containers numbers from EPL
+## Using containers from EPL
 
 To use the containers from EPL, add the relevant .mon file (eg Stack.mon) to your project, or ensure you inject it before your EPL code. Then import the relevant event into your file with:
 
